@@ -21,6 +21,7 @@ packaging==24.2
     # via statsmodels
 pandas==2.2.3
     # via statsmodels
+    # via statx
 patsy==1.0.1
     # via statsmodels
 python-dateutil==2.9.0.post0

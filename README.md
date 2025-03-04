@@ -55,6 +55,49 @@ Required parameters:
 - `dependent`: The binary dependent variable column
 - `independent`: Formula for independent variables
 
+### Generalized Linear Models (GLM)
+
+```bash
+statx data.csv -p "test:glm,dependent:y,independent:x+z,family:poisson,link:log"
+```
+
+Required parameters:
+- `dependent`: The dependent variable column
+- `independent`: Formula for independent variables
+- `family`: Distribution family - one of:
+  - `gaussian`: For continuous data (normal distribution)
+  - `binomial`: For binary data (0/1)
+  - `poisson`: For count data
+  - `gamma`: For positive continuous data with variance proportional to square of mean
+  - `inverse_gaussian`: For positive continuous data
+  - `neg_binomial`: For overdispersed count data
+  - `tweedie`: For compound Poisson-gamma distribution
+
+Optional parameters:
+- `link`: Link function - depends on the family, common options include:
+  - `identity`: No transformation (default for Gaussian)
+  - `log`: Log transformation (default for Poisson and Gamma)
+  - `logit`: Logit transformation (default for Binomial)
+  - `probit`: Probit transformation
+  - `cloglog`: Complementary log-log transformation
+  - `inverse`: Inverse transformation
+  - `power`: Power transformation
+- `alpha`: Alpha parameter for NegativeBinomial family (default 1.0)
+- `var_power`: Variance power for Tweedie family (default 1.5)
+- `power`: Power parameter for Power link function (default 1.0)
+
+Examples:
+```bash
+# Poisson regression with log link
+statx data.csv -p "test:glm,dependent:count,independent:x+z,family:poisson"
+
+# Gamma regression with log link
+statx data.csv -p "test:glm,dependent:duration,independent:x+z,family:gamma"
+
+# Binomial regression with probit link
+statx data.csv -p "test:glm,dependent:success,independent:x+z,family:binomial,link:probit"
+```
+
 ### Two-sample t-test
 
 ```bash

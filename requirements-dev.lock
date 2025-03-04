@@ -10,28 +10,53 @@
 #   universal: false
 
 -e file:.
+black==25.1.0
 click==8.1.8
+    # via black
     # via statx
+iniconfig==2.0.0
+    # via pytest
+mypy==1.15.0
+mypy-extensions==1.0.0
+    # via black
+    # via mypy
 numpy==2.2.3
     # via pandas
+    # via pandas-stubs
     # via patsy
     # via scipy
     # via statsmodels
 packaging==24.2
+    # via black
+    # via pytest
     # via statsmodels
 pandas==2.2.3
     # via statsmodels
+    # via statx
+pandas-stubs==2.2.3.241126
+pathspec==0.12.1
+    # via black
 patsy==1.0.1
     # via statsmodels
+platformdirs==4.3.6
+    # via black
+pluggy==1.5.0
+    # via pytest
+pytest==8.3.5
 python-dateutil==2.9.0.post0
     # via pandas
 pytz==2025.1
     # via pandas
+ruff==0.9.9
 scipy==1.15.2
     # via statsmodels
 six==1.17.0
     # via python-dateutil
 statsmodels==0.14.4
     # via statx
+types-pytz==2025.1.0.20250204
+    # via pandas-stubs
+typing-extensions==4.12.2
+    # via mypy
 tzdata==2025.1
     # via pandas

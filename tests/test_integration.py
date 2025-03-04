@@ -74,8 +74,8 @@ def test_output_to_file():
             # Check file content
             output_file.seek(0)
             content = output_file.read()
-            assert b"OLS Regression Results" in content
-            assert b"R-squared:" in content
+            assert "OLS Regression Results" in content
+            assert "R-squared:" in content
 
 
 def test_custom_separator():
@@ -105,3 +105,37 @@ def test_custom_column_names():
 
     assert result.exit_code == 0
     assert "OLS Regression Results" in result.output
+
+
+def test_glm_with_poisson_family():
+    """Test GLM with Poisson family."""
+    runner = CliRunner()
+    # Create data with count variable
+    data = "x,count,group\n1,2,A\n2,4,A\n3,7,B\n4,12,B\n"
+
+    result = runner.invoke(
+        statx,
+        ["-p", "test:glm,dependent:count,independent:x,family:poisson"],
+        input=data,
+    )
+
+    assert result.exit_code == 0
+    assert "Generalized Linear Model Regression Results" in result.output
+    assert "Poisson" in result.output
+
+
+def test_glm_with_custom_link():
+    """Test GLM with custom link function."""
+    runner = CliRunner()
+    data = "x,y,group\n1,3.4,A\n2,5.7,A\n3,6.3,B\n4,8.1,B\n"
+
+    result = runner.invoke(
+        statx,
+        ["-p", "test:glm,dependent:y,independent:x,family:gaussian,link:log"],
+        input=data,
+    )
+
+    assert result.exit_code == 0
+    assert "Generalized Linear Model Regression Results" in result.output
+    assert "Gaussian" in result.output
+    assert "Log" in result.output
